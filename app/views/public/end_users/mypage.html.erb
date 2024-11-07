@@ -2,6 +2,10 @@
 
 <h4>登録情報</h4>
 
-編集する
+名前<%= @user.name %>
+自己紹介<%= @user.introduction %>
+メールアドレス<%= @user.email %>
 
-<%= @user.email %>
+<% if current_user == @user %>
+  <%= link_to "編集する", edit_end_user_path(@user) %>
+<% end %>
