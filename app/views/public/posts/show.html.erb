@@ -1,1 +1,12 @@
-<h1>show</h1>
+<h2>タイトル</h2>
+<p><%= @post.title %></p>
+
+<h2>本文</h2>
+<p><%= @post.body %></p>
+
+<% if @post.image.attached? %>
+  <%= image_tag @post.image, size: "300x300" %>
+<% end %>
+
+  <%= link_to "編集", edit_post_path(@post.id) %>
+  <%= link_to "削除", post_path(@post), method: :delete, data: {confirm: "本当に削除しますか？"} %>

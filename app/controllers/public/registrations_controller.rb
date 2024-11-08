@@ -10,9 +10,10 @@ class Public::RegistrationsController < Devise::RegistrationsController
   # end
 
   # POST /resource
-  # def create
-  #   super
-  # end
+  def create
+    configure_sign_up_params
+    super
+  end
 
   # GET /resource/edit
   # def edit

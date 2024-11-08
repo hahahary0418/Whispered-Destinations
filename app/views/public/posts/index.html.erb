@@ -1,1 +1,14 @@
-<h1>index</h1>
+<%= link_to "新規", new_post_path %>
+
+<h1>投稿一覧</h1>
+
+<% @posts.each do |post| %>
+
+  <p>タイトル</p>
+  <%= link_to post.title, post_path(post.id) %>
+  
+  <% if post.image.attached? %>
+    <%= image_tag post.image, size: "200x200" %>
+  <% end %>
+
+<% end %>

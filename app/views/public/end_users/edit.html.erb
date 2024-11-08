@@ -9,6 +9,9 @@
   <%= f.label :email, "メールアドレス" %>
   <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
   
+  <%= f.label :profile_image, "プロフィール画像" %>
+  <%= f.file_field :profile_image, placeholder: "プロフィール画像", accept: "image/*" %>  
+  
   <%= f.submit "変更内容を保存" %>
   
 <% end %>
