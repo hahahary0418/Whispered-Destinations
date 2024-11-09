@@ -1,3 +1,6 @@
+<%= image_tag @post.user.profile_image, size: "50x50" %>
+<%= link_to @post.user.name, end_user_path(@post.user) %>
+
 <h2>タイトル</h2>
 <p><%= @post.title %></p>
 
@@ -8,5 +11,22 @@
   <%= image_tag @post.image, size: "300x300" %>
 <% end %>
 
-  <%= link_to "編集", edit_post_path(@post.id) %>
-  <%= link_to "削除", post_path(@post), method: :delete, data: {confirm: "本当に削除しますか？"} %>
+<% if @post.user_id == current_user.id %>
+  <%= link_to "編集", edit_post_path(@post) %>
+  <%= link_to "削除", post_path(@post), method: :delete, data: { confirm: '本当に削除してよろしいですか？' } %>
+<% end %>
+
+
+コメント件数：<%= @post.post_comments.count %>
+<% @post.post_comments.each do |post_comment| %>
+  <%= image_tag post_comment.user.get_profile_image(50,50) %>
+  <%= post_comment.user.name %>
+  <%= post_comment.created_at.strftime('%Y/%m/%d') %><%= post_comment.comment %>
+  <% if post_comment.user == current_user %>
+    <%= link_to "削除", post_post_comment_path(post_comment.post, post_comment), method: :delete %>
+  <% end %>
+<% end %>
+<%= form_with model: [@post, @post_comment] do |f| %>
+  <%= f.text_area :comment, rows: '5', placeholder: "コメントをここに" %>
+  <%= f.submit "送信する" %>
+<% end %>

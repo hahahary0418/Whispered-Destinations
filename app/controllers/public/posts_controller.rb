@@ -5,8 +5,8 @@ class Public::PostsController < ApplicationController
   end
 
   def create
-    post = Post.new(post_params)
-  if post.save
+    @post = current_user.posts.build(post_params)
+  if @post.save
     @posts = Post.all
     redirect_to posts_path
   else
@@ -20,6 +20,7 @@ class Public::PostsController < ApplicationController
 
   def show
     @post = Post.find(params[:id])
+    @post_comment = PostComment.new
   end
 
   def edit
@@ -27,9 +28,9 @@ class Public::PostsController < ApplicationController
   end
 
   def update
-    post = Post.find(params[:id])
-    post.update(post_params)
-    redirect_to post_path(post.id)
+    @post = Post.find(params[:id])
+    @post.update(post_params)
+    redirect_to post_path(@post)
   end
 
   def destroy
@@ -37,7 +38,7 @@ class Public::PostsController < ApplicationController
     @post.destroy
     redirect_to posts_path
   end
-  
+
   private
 
   def post_params

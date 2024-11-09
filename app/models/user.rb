@@ -8,9 +8,9 @@ class User < ApplicationRecord
   validates :email, presence: true
   validates :introduction, presence: false, length: { maximum: 50 }
   
-  has_one_attached :profile_image
-  
   has_many :posts, dependent: :destroy
+  has_many :post_comments, dependent: :destroy
+  has_one_attached :profile_image
   
   def introduction
     self[:introduction]
