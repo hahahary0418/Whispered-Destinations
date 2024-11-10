@@ -16,6 +16,9 @@
   <%= link_to "削除", post_path(@post), method: :delete, data: { confirm: '本当に削除してよろしいですか？' } %>
 <% end %>
 
+<div id="favorite_btn_<%= @post.id %>">
+  <%= render "public/favorites/btn", post: @post %>
+</div>
 
 コメント件数：<%= @post.post_comments.count %>
 <% @post.post_comments.each do |post_comment| %>

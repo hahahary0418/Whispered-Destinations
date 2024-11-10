@@ -5,11 +5,12 @@
 <% @posts.each do |post| %>
 
   <%= link_to post.title, post_path(post.id) %>
-  
+
   <% if post.image.attached? %>
     <%= image_tag post.image, size: "200x200" %>
   <% end %>
-  
-  <%= link_to "#{post.post_comments.count} コメント", post_path(post.id) %>
+
+  ♡<%= post.favorites.count %>
+  <%= "#{post.post_comments.count} コメント" %>
 
 <% end %>

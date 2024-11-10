@@ -10,6 +10,7 @@ Rails.application.routes.draw do
     get "end_users/mypage" => "end_users#mypage"
     resources :end_users, only: [:show, :edit, :update]
     resources :posts, only: [:new, :create, :index, :show, :edit, :update, :destroy]do
+      resource :favorite, only: [:create, :destroy]
       resources :post_comments, only: [:create, :destroy]
     end
   end
