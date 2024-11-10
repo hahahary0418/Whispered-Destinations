@@ -1,0 +1,16 @@
+<% if @range == "User" %>
+  <% @users.each do |user| %>
+    <%= link_to end_user_path(user.id) do %>
+      <%= image_tag user.get_profile_image(50, 50) %>
+      <%= user.name %>
+    <% end %>
+  <% end %>
+<% else %>
+  <% @posts.each do |post| %>
+    <%= link_to post_path(post.id) do %>
+      <%= image_tag post.user.get_profile_image(50, 50) %>
+    <% end %>
+    <%= link_to post.title , post_path(post.id) %>
+    <%= post.body %></td>
+  <% end %>
+<% end %>

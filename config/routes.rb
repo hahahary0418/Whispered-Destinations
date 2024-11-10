@@ -13,6 +13,7 @@ Rails.application.routes.draw do
       resource :favorite, only: [:create, :destroy]
       resources :post_comments, only: [:create, :destroy]
     end
+    get "/search", to: "searches#search"
   end
   
   devise_for :admin, skip: [:registrations, :passwords] ,controllers: {

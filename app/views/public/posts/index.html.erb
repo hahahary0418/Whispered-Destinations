@@ -11,6 +11,6 @@
   <% end %>
 
   ♡<%= post.favorites.count %>
-  <%= "#{post.post_comments.count} コメント" %>
+  <span id="comment_count"><%= post.post_comments.count %></span>コメント件数
 
 <% end %>
