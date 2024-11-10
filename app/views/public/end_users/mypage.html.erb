@@ -10,3 +10,12 @@
 <% if current_user == @user %>
   <%= link_to "編集する", edit_end_user_path(@user) %>
 <% end %>
+
+<% @posts.each do |post| %>
+  <%= link_to post_path(post.id) do %>
+    <% if post.image.attached? %>
+      <%= image_tag post.image, size: "200x200" %>
+    <% end %>
+    <%= post.title %>
+  <% end %>
+<% end %>

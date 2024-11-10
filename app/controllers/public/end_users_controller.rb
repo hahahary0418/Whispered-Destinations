@@ -3,10 +3,12 @@ class Public::EndUsersController < ApplicationController
 
   def mypage
     @user = current_user
+    @posts = @user.posts
   end
 
   def show
     @user = User.find(params[:id])
+    @posts = @user.posts
   end
 
   def edit

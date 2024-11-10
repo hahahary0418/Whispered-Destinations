@@ -4,10 +4,11 @@
 
 <% @posts.each do |post| %>
 
-  <%= link_to post.title, post_path(post.id) %>
-
-  <% if post.image.attached? %>
-    <%= image_tag post.image, size: "200x200" %>
+  <%= link_to post_path(post.id) do %>
+    <% if post.image.attached? %>
+      <%= image_tag post.image, size: "200x200" %>
+    <% end %>
+    <%= post.title %>
   <% end %>
 
   ♡<%= post.favorites.count %>
