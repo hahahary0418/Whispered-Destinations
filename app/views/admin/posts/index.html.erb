@@ -1,0 +1,15 @@
+<h1>投稿一覧</h1>
+
+<% @posts.each do |post| %>
+
+  <%= link_to admin_post_path(post) do %>
+    <% if post.image.attached? %>
+      <%= image_tag post.image, size: "200x200" %>
+    <% end %>
+    <%= post.title %>
+  <% end %>
+
+  ♡<%= post.favorites.count %>
+  <span id="comment_count"><%= post.post_comments.count %></span>コメント件数
+
+<% end %>

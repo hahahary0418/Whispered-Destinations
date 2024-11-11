@@ -1,10 +1,10 @@
-<% if @post.favorited_by?(current_user) %>
+<% if @post && @post.favorited_by?(current_user) %>
   <p>
     <%= link_to post_favorite_path(post_id: @post.id), method: :delete, remote: true, class: "like-button", data: { post_id: @post.id } do %>
       ♥<%= @post.favorites.count %>
     <% end %>
   </p>
-  <% else %>
+<% else %>
   <p>
     <%= link_to post_favorite_path(post_id: @post.id), method: :post, remote: true, class: "like-button", data: { post_id: @post.id } do %>
       ♡<%= @post.favorites.count %>

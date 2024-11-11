@@ -1,2 +1,8 @@
-<h1>Admin::EndUsers#edit</h1>
-<p>Find me in app/views/admin/end_users/edit.html.erb</p>
+
+
+会員ステータス
+<% if !@user.is_deleted %>
+  <%= link_to '退会させる', admin_withdrawal_path(@user.id), method: :patch, data: { confirm: '本当に退会させますか？' } %>
+<% else %>
+  退会済み
+<% end %>

@@ -23,9 +23,16 @@ class Public::EndUsersController < ApplicationController
       render :edit
     end
   end
+  
+  def check
+    
+  end
 
-  def destroy
-
+  def withdraw
+    @user = current_user
+    @user.soft_delete
+    sign_out @user
+    redirect_to root_path, notice: 'アカウントは退会処理されました。'
   end
   
   private

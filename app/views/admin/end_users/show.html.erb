@@ -1,2 +1,16 @@
-<h1>Admin::EndUsers#show</h1>
-<p>Find me in app/views/admin/end_users/show.html.erb</p>
+<%= image_tag @user.get_profile_image(100,100) %>
+<%= @user.name %>
+<%= @user.introduction %>
+<%= @user.email %>
+
+
+<%= link_to '編集する', edit_admin_end_user_path %>
+
+<% @posts.each do |post| %>
+  <%= link_to admin_post_path(post.id) do %>
+    <% if post.image.attached? %>
+      <%= image_tag post.image, size: "200x200" %>
+    <% end %>
+    <%= post.title %>
+  <% end %>
+<% end %>

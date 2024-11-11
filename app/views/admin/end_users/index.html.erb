@@ -1,2 +1,9 @@
-<h1>Admin::EndUsers#index</h1>
-<p>Find me in app/views/admin/end_users/index.html.erb</p>
+<h4>会員一覧</h4>
+
+<% @users.each do |user| %>
+  <% unless user.admin? %>
+    <%= user.id %>
+    <%= link_to user.name, admin_end_user_path(user) %>
+    <%= user.email %>
+  <% end %>
+<% end %>
