@@ -1,24 +1,57 @@
-<%= link_to admin_end_user_path(@post.user) do %>
-  <%= image_tag @post.user.profile_image, size: "50x50" %>
-  <%= @post.user.name %>
-<% end %>
+<div class="container mt-5 mb-5 pt-5">
+  <div class="row mb-3">
+    <!-- 投稿したユーザー情報 -->
+    <div class="col-md-12">
+      <%= link_to admin_end_user_path(@post.user) do %>
+        <div class="d-flex align-items-center">
+          <%= image_tag @post.user.profile_image, size: "50x50", class: "rounded-circle mr-2" %>
+          <h5><%= @post.user.name %></h5>
+        </div>
+      <% end %>
+    </div>
+  </div>
 
-<h2>タイトル</h2>
-<p><%= @post.title %></p>
+  <!-- 投稿タイトル -->
+  <div class="row mb-3">
+    <div class="col-md-12">
+      <h2><%= @post.title %></h2>
+    </div>
+  </div>
 
-<h2>本文</h2>
-<p><%= @post.body %></p>
+  <!-- 投稿本文 -->
+  <div class="row mb-3">
+    <div class="col-md-12">
+      <p><%= @post.body %></p>
+    </div>
+  </div>
 
-<% if @post.image.attached? %>
-  <%= image_tag @post.image, size: "300x300" %>
-<% end %>
+  <!-- 投稿画像 -->
+  <% if @post.image.attached? %>
+    <div class="row mb-3">
+      <div class="col-md-12">
+        <%= image_tag @post.image, size: "300x300", class: "img-fluid" %>
+      </div>
+    </div>
+  <% end %>
 
-<%= link_to "削除", admin_post_path(@post), method: :delete, data: { confirm: '本当に削除してよろしいですか？' } %>
+  <!-- 削除ボタン -->
+  <div class="row mb-3">
+    <div class="col-md-12">
+      <%= link_to "削除", admin_post_path(@post), method: :delete, class: "btn btn-danger", data: { confirm: '本当に削除してよろしいですか？' } %>
+    </div>
+  </div>
 
-<div id="comment_counter">
- <%= render "admin/post_comments/counter", post: @post %>
-</div>
+  <!-- コメントカウンター -->
+  <div class="row mb-3" id="comment_counter">
+    <div class="col-md-12">
+      <%= render "admin/post_comments/counter", post: @post %>
+    </div>
+  </div>
 
-<div id="comment_index">
- <%= render "admin/post_comments/index", post: @post %>
+  <!-- コメント一覧 -->
+  <div class="row" id="comment_index">
+    <div class="col-md-12">
+      <%= render "admin/post_comments/index", post: @post %>
+    </div>
+  </div>
 </div>

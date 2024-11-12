@@ -1,15 +1,37 @@
-<h1>投稿一覧</h1>
+<div class="container mt-5 pt-5 mb-5">
+  <h1>投稿一覧</h1>
 
-<% @posts.each do |post| %>
+  <div class="row">
+    <% @posts.each do |post| %>
+      <div class="col-md-4 mb-3">
+        <div class="card">
+          <div class="card-body">
+            <!-- 投稿のリンク -->
+            <%= link_to admin_post_path(post) do %>
+              <div class="text-center">
+                <!-- 投稿画像 -->
+                <% if post.image.attached? %>
+                  <%= image_tag post.image, size: "200x200", class: "mb-3", style: "object-fit: cover;" %>
+                <% end %>
 
-  <%= link_to admin_post_path(post) do %>
-    <% if post.image.attached? %>
-      <%= image_tag post.image, size: "200x200" %>
+                <!-- 投稿タイトル -->
+                <h5 class="card-title"><%= post.title %></h5>
+              </div>
+            <% end %>
+
+            <div class="d-flex justify-content-between mt-2">
+              <!-- いいね数 -->
+              <div>
+                ♡ <%= post.favorites.count %>
+              </div>
+              <!-- コメント数 -->
+              <div>
+                <span id="comment_count"><i class="fa-regular fa-comment-dots"></i><%= post.post_comments.count %></span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     <% end %>
-    <%= post.title %>
-  <% end %>
-
-  ♡<%= post.favorites.count %>
-  <span id="comment_count"><%= post.post_comments.count %></span>コメント件数
-
-<% end %>
+  </div>
+</div>

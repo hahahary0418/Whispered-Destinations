@@ -1,9 +1,32 @@
-<h4>会員一覧</h4>
-
-<% @users.each do |user| %>
-  <% unless user.admin? %>
-    <%= user.id %>
-    <%= link_to user.name, admin_end_user_path(user) %>
-    <%= user.email %>
-  <% end %>
-<% end %>
+<div class="container mt-5 mb-5 pt-5 pb-5">
+  <h4 class="mb-3">会員一覧</h4>
+  
+  <table class="table table-striped table-bordered">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>名前</th>
+        <th>メールアドレス</th>
+        <th>ステータス</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @users.each do |user| %>
+        <% unless user.admin? %>
+          <tr>
+            <td><%= user.id %></td>
+            <td><%= link_to user.name, admin_end_user_path(user), class: "text-decoration-none" %></td>
+            <td><%= user.email %></td>
+            <td>
+              <% if !user.is_deleted %>
+                <p class="text-success">アクティブ</p>
+              <% else %>
+                <p class="text-muted">退会済み</p>
+              <% end %>
+            </td>
+          </tr>
+        <% end %>
+      <% end %>
+    </tbody>
+  </table>
+</div>

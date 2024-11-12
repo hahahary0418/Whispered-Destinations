@@ -1,16 +1,28 @@
-<%= image_tag @user.get_profile_image(100,100) %>
-<%= @user.name %>
-<%= @user.introduction %>
-<%= @user.email %>
+<div class="container mt-5 mb-5 pt-5">
+  <div class="card mb-4">
+    <div class="card-body text-center">
+      <%= image_tag @user.get_profile_image(100, 100), class: "rounded-circle mb-3" %>
+      <h4><%= @user.name %></h4>
+      <p><strong>自己紹介:</strong> <%= @user.introduction %></p>
+      <p><strong>メールアドレス:</strong> <%= @user.email %></p>
 
-
-<%= link_to '編集する', edit_admin_end_user_path %>
-
-<% @posts.each do |post| %>
-  <%= link_to admin_post_path(post.id) do %>
-    <% if post.image.attached? %>
-      <%= image_tag post.image, size: "100x100" %>
+      <%= link_to '編集する', edit_admin_end_user_path(@user), class: "btn btn-primary mt-3" %>
+    </div>
+  </div>
+  <div class="row">
+    <% @posts.each do |post| %>
+      <div class="col-md-4 mb-3">
+        <div class="card">
+          <%= link_to admin_post_path(post.id) do %>
+            <% if post.image.attached? %>
+              <%= image_tag post.image, class: "card-img-top", style: "height: 150px; object-fit: cover;" %>
+            <% end %>
+            <div class="card-body">
+              <h6 class="card-title"><%= post.title %></h6>
+            </div>
+          <% end %>
+        </div>
+      </div>
     <% end %>
-    <%= post.title %>
-  <% end %>
-<% end %>
+  </div>
+</div>

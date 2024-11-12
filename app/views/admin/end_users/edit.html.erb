@@ -1,8 +1,21 @@
+<div class="container mt-5 pt-5">
+  <!-- プロフィール画像と名前 -->
+  <div class="text-center mb-3">
+    <%= image_tag @user.get_profile_image(100, 100), class: "rounded-circle mb-2" %>
+    <h4><%= @user.name %></h4>
+  </div>
 
+  <!-- 会員編集情報 -->
+  <div class="card">
+    <div class="card-body">
+      <h5 class="card-title">会員ステータス</h5>
 
-会員ステータス
-<% if !@user.is_deleted %>
-  <%= link_to '退会させる', admin_withdrawal_path(@user.id), method: :patch, data: { confirm: '本当に退会させますか？' } %>
-<% else %>
-  退会済み
-<% end %>
+      <% if !@user.is_deleted %>
+        <p class="text-success">アクティブ</p>
+        <%= link_to '退会させる', admin_withdrawal_path(@user.id), method: :patch, data: { confirm: '本当に退会させますか？' }, class: "btn btn-danger" %>
+      <% else %>
+        <p class="text-muted">退会済み</p>
+      <% end %>
+    </div>
+  </div>
+</div>
