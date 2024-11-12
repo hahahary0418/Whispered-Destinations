@@ -1,4 +1,15 @@
-<%= form_with model: [@post, @post_comment], local: false do |f| %>
-  <%= f.text_area :comment, rows: '5', placeholder: "コメントをここに" %>
-  <%= f.submit "送信する" %>
-<% end %>
+<div class="container mt-4">
+  <div class="card mb-5">
+    <div class="card-body">
+      <h5 class="card-title">コメントを投稿</h5>
+      <%= form_with model: [@post, @post_comment], local: false do |f| %>
+        <div class="form-group">
+          <%= f.text_area :comment, rows: 5, placeholder: "コメントをここに", class: "form-control" %>
+        </div>
+        <div class="form-group text-right">
+          <%= f.submit "送信する", class: "btn btn-primary" %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

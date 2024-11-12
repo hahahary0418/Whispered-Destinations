@@ -1,17 +1,35 @@
-<%= link_to "新規", new_post_path %>
-
-<h1>投稿一覧</h1>
-
-<% @posts.each do |post| %>
-
-  <%= link_to post_path(post.id) do %>
-    <% if post.image.attached? %>
-      <%= image_tag post.image, size: "200x200" %>
-    <% end %>
-    <%= post.title %>
+<div class="row mt-5 pt-5 mb-5">
+  <% @posts.each do |post| %>
+    <div class="col-md-6">
+      <div class="card bg-light mb-3">
+        <div class="card-body">
+          <div class="d-flex align-items-center">
+            <%= link_to end_user_path(post.user) do %>
+              <%= image_tag post.user.profile_image, size: "50x50", class: "rounded-circle mr-3" %>
+            <% end %>
+            <div>
+              <%= link_to post.user.name, end_user_path(post.user), class: "font-weight-bold" %>
+            </div>
+          </div>
+          <hr>
+          <%= link_to post_path(post.id) do %>
+            <div class="d-flex align-items-center">
+              <% if post.image.attached? %>
+                <%= image_tag post.image, class: "img-fluid rounded mb-3", style: "max-width: 200px; height: auto; object-fit: cover;" %>
+              <% end %>
+              <h5 class="card-title ml-3"><%= post.title %></h5>
+            </div>
+          <% end %>
+          <div class="d-flex justify-content-between">
+            <div>
+              ♡ <%= post.favorites.count %>
+            </div>
+            <div>
+              <span id="comment_count"><i class="fa-regular fa-comment-dots"></i>　<%= post.post_comments.count %></span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   <% end %>
-
-  ♡<%= post.favorites.count %>
-  <span id="comment_count"><%= post.post_comments.count %></span>コメント件数
-
-<% end %>
+</div>

@@ -1,10 +1,21 @@
-<% @post.post_comments.each do |post_comment| %>
-  <%= link_to end_user_path(post_comment.user) do %>
-    <%= image_tag post_comment.user.get_profile_image(50,50) %>
-    <%= post_comment.user.name %>
+<div class="container mt-4">
+  <% @post.post_comments.each do |post_comment| %>
+    <div class="card mb-3">
+      <div class="card-body">
+        <div class="d-flex align-items-center mb-3">
+          <%= link_to end_user_path(post_comment.user) do %>
+            <%= image_tag post_comment.user.get_profile_image(50, 50), class: "rounded-circle mr-3" %>
+          <% end %>
+          <div>
+            <%= link_to post_comment.user.name, end_user_path(post_comment.user), class: "font-weight-bold" %>
+            <p class="mb-1 text-muted"><%= post_comment.created_at.strftime('%Y/%m/%d') %></p>
+          </div>
+        </div>
+        <p><%= post_comment.comment %></p>
+        <% if post_comment.user == current_user %>
+          <%= link_to "削除", post_post_comment_path(post_comment.post, post_comment), method: :delete, remote: true, class: "btn btn-danger btn-sm" %>
+        <% end %>
+      </div>
+    </div>
   <% end %>
-    <%= post_comment.created_at.strftime('%Y/%m/%d') %><%= post_comment.comment %>
-    <% if post_comment.user == current_user %>
-      <%= link_to "削除", post_post_comment_path(post_comment.post, post_comment), method: :delete, remote: true %>
-    <% end %>
-<% end %>
+</div>

@@ -9,7 +9,7 @@
 <% @posts.each do |post| %>
   <%= link_to admin_post_path(post.id) do %>
     <% if post.image.attached? %>
-      <%= image_tag post.image, size: "200x200" %>
+      <%= image_tag post.image, size: "100x100" %>
     <% end %>
     <%= post.title %>
   <% end %>
