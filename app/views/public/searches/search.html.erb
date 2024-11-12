@@ -1,16 +1,38 @@
-<% if @range == "User" %>
-  <% @users.each do |user| %>
-    <%= link_to end_user_path(user.id) do %>
-      <%= image_tag user.get_profile_image(50, 50) %>
-      <%= user.name %>
-    <% end %>
+<div class="container mt-5 mb-5 pt-5">
+  <% if @range == "User" %>
+    <div class="row">
+      <% @users.each do |user| %>
+        <div class="col-md-4 mb-4">
+          <div class="card bg-light">
+            <div class="card-body text-center">
+              <%= link_to end_user_path(user.id) do %>
+                <%= image_tag user.get_profile_image(50, 50), class: "rounded-circle mb-2" %>
+                <h5><%= user.name %></h5>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  <% else %>
+    <div class="row">
+      <% @posts.each do |post| %>
+        <div class="col-md-4 mb-4">
+          <div class="card bg-light">
+            <div class="card-body">
+              <%= link_to post_path(post.id) do %>
+                <div class="d-flex align-items-center mb-3">
+                  <%= image_tag post.user.get_profile_image(50, 50), class: "rounded-circle mr-3" %>
+                  <h5 class="card-title"><%= post.user.name %></h5>
+                </div>
+                <h6 class="card-title"><%= post.title %></h6>
+                <!-- 投稿の本文表示を削除 -->
+                <!-- <p class="card-text"><%= truncate(post.body, length: 100) %></p> -->
+              <% end %>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
   <% end %>
-<% else %>
-  <% @posts.each do |post| %>
-    <%= link_to post_path(post.id) do %>
-      <%= image_tag post.user.get_profile_image(50, 50) %>
-    <% end %>
-    <%= link_to post.title , post_path(post.id) %>
-    <%= post.body %></td>
-  <% end %>
-<% end %>
+</div>

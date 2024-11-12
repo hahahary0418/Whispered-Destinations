@@ -1,2 +1,95 @@
-<h1>Public::Homes#about</h1>
-<p>Find me in app/views/public/homes/about.html.erb</p>
+<div class="container mt-5 mb-5 pt-5 pb-5">
+  <!-- ヘッダーセクション -->
+  <div class="row text-center">
+    <div class="col-12">
+      <h1 class="display-4 mb-4 font-weight-bold">Whispered Destinationsへようこそ</h1>
+      <p class="lead">
+        世界中の隠れた名所を探索し、<br>
+        新しい冒険を一緒に見つけましょう。
+      </p>
+    </div>
+  </div>
+
+  <!-- サイトの紹介セクション -->
+  <div class="row text-center bg-light py-5">
+    <div class="col-md-12">
+      <h2 class="h4 mb-3">Whispered Destinationsとは？</h2>
+      <p>
+        Whispered Destinationsは、既に大手旅行サイトで取り上げられた観光地ではなく、<br>
+        まだ知られていない隠れたスポットや未開拓の場所を愛する旅行者たちが集まり、<br>
+        新しい冒険を発見し、共有するためのコミュニティサイトです。
+      </p>
+      <p>
+        ここでは、旅行好きな人たちが実際に訪れた小さな町のカフェやビーチ、秘境の温泉など、<br>
+        大手サイトには載っていないような場所を紹介し合っています。
+      </p>
+    </div>
+  </div>
+
+  <!-- 目的と価値セクション -->
+  <div class="row text-center bg-secondary text-white py-5">
+    <div class="col-md-12">
+      <h2 class="h4 mb-3">私たちの目的と価値</h2>
+      <div class="row">
+        <div class="col-md-4 mb-3">
+          <h5>隠れた名所の発見</h5>
+          <p>
+            旅行者同士で、まだ知られていない美しい場所や楽しい体験を共有し、<br>
+            それらを新たに発見できる場を提供します。
+          </p>
+        </div>
+        <div class="col-md-4 mb-3">
+          <h5>新しいコミュニティとのつながり</h5>
+          <p>
+            他の旅行好きな人たちと意見交換し、インスピレーションを得たり、<br>
+            新たな旅行仲間と出会うことができます。
+          </p>
+        </div>
+        <div class="col-md-4 mb-3">
+          <h5>思い出を共有</h5>
+          <p>
+            あなたの旅行体験を投稿し、他の人たちとその素晴らしさを共有することができます。
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- コミュニティの特徴セクション -->
+  <div class="row text-center py-5">
+    <div class="col-md-12">
+      <h2 class="h4 mb-3">Whispered Destinationsの特徴</h2>
+      <div class="row">
+        <div class="col-md-4 mb-3">
+          <h5>詳細なレビューと体験談</h5>
+          <p>
+            実際に訪れた場所の詳細なレビューや体験談を確認でき、<br>
+            旅行の計画に役立つ情報を提供します。
+          </p>
+        </div>
+        <div class="col-md-4 mb-3">
+          <h5>隠れたスポットの投稿</h5>
+          <p>
+            他の旅行者がまだ知らない場所をシェアし、<br>
+            新しい発見をしたい人々に役立つ情報を提供します。
+          </p>
+        </div>
+        <div class="col-md-4 mb-3">
+          <h5>旅行仲間との交流</h5>
+          <p>
+            同じ趣味を持つ仲間と交流することで、<br>
+            旅行の楽しさがさらに広がります。
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 参加ボタン -->
+  <div class="row text-center mt-5">
+    <div class="col-12">
+      <h3>今すぐ、Whispered Destinationsで新しい冒険を始めましょう</h3>
+      <%= link_to "参加する", new_user_registration_path, class: "btn btn-primary btn-lg" %>
+    </div>
+  </div>
+</div>

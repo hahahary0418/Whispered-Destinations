@@ -1,21 +1,49 @@
-<h2>マイページ</h2>
+<div class="container mt-5 pt-5 mb-5">
+  <!-- プロフィール情報 -->
+  <div class="row mb-5">
+    <div class="col-md-12 text-center">
+      <!-- プロフィール画像と名前・自己紹介 -->
+      <div class="d-flex align-items-center justify-content-center">
+        <%= image_tag @user.get_profile_image(100, 100), class: "rounded-circle mr-3" %>
+        <div>
+          <h4><%= @user.name %></h4>
+          <p><strong>自己紹介:</strong> <%= @user.introduction %></p>
+          <p><strong>メールアドレス:</strong> <%= @user.email %></p>
+        </div>
+      </div>
 
-<h4>登録情報</h4>
+      <% if current_user == @user %>
+        <%= link_to "編集する", edit_end_user_path(@user), class: "btn btn-primary mt-3" %>
+      <% end %>
+    </div>
+  </div>
 
-<%= image_tag @user.get_profile_image(100,100) %>
-名前<%= @user.name %>
-自己紹介<%= @user.introduction %>
-メールアドレス<%= @user.email %>
-
-<% if current_user == @user %>
-  <%= link_to "編集する", edit_end_user_path(@user) %>
-<% end %>
-
-<% @posts.each do |post| %>
-  <%= link_to post_path(post.id) do %>
-    <% if post.image.attached? %>
-      <%= image_tag post.image, size: "200x200" %>
+  <!-- 自身の投稿 -->
+  <div class="row">
+    <h4 class="col-12 mb-4">投稿一覧</h4>
+    <% @posts.each do |post| %>
+      <div class="col-md-4 mb-4">
+        <div class="card bg-light">
+          <div class="card-body">
+            <%= link_to post_path(post.id) do %>
+              <div class="d-flex">
+                <% if post.image.attached? %>
+                  <%= image_tag post.image, class: "img-fluid mr-3", style: "max-height: 100px; object-fit: cover;" %>
+                <% end %>
+                <h5 class="card-title align-self-center"><%= post.title %></h5>
+              </div>
+            <% end %>
+            <div class="d-flex justify-content-between mt-3">
+              <div>
+                ♡ <%= post.favorites.count %>
+              </div>
+              <div>
+                <span id="comment_count"><i class="fa-regular fa-comment-dots"></i>　<%= post.post_comments.count %></span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     <% end %>
-    <%= post.title %>
-  <% end %>
-<% end %>
+  </div>
+</div>

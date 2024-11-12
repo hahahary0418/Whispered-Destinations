@@ -1,12 +1,35 @@
-<%= image_tag @user.get_profile_image(50,50) %>
-<%= @user.name %>
-<%= @user.introduction %>
+<div class="container mt-5 pt-5 mb-5">
+  <!-- プロフィール情報 -->
+  <div class="text-center mb-5">
+    <%= image_tag @user.get_profile_image(100,100), class: "rounded-circle mb-3" %>
+    <h3><%= @user.name %></h3>
+    <p><strong>自己紹介:</strong> <%= @user.introduction %></p>
+  </div>
 
-<% @posts.each do |post| %>
-  <%= link_to post_path(post.id) do %>
-    <% if post.image.attached? %>
-      <%= image_tag post.image, size: "200x200" %>
+  <!-- ユーザーの投稿一覧 -->
+  <h4 class="mb-4">posts</h4>
+  <div class="row">
+    <% @posts.each do |post| %>
+      <div class="col-md-4 mb-4">
+        <div class="card bg-light">
+          <div class="card-body">
+            <%= link_to post_path(post.id) do %>
+              <% if post.image.attached? %>
+                <%= image_tag post.image, class: "img-fluid mb-3", style: "max-height: 200px; object-fit: cover;" %>
+              <% end %>
+              <h5 class="card-title"><%= post.title %></h5>
+            <% end %>
+            <div class="d-flex justify-content-between">
+              <div>
+                ♡ <%= post.favorites.count %>
+              </div>
+              <div>
+                <span id="comment_count"><i class="fa-regular fa-comment-dots"></i>　<%= post.post_comments.count %></span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     <% end %>
-    <%= post.title %>
-  <% end %>
-<% end %>
+  </div>
+</div>
