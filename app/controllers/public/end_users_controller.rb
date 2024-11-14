@@ -1,5 +1,5 @@
 class Public::EndUsersController < ApplicationController
-  before_action :is_matching_login_user, only: [:edit, :update]
+  before_action :authenticate_user!
 
   def mypage
     @user = current_user

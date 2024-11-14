@@ -1,4 +1,7 @@
 class Admin::EndUsersController < ApplicationController
+  
+  before_action :authenticate_admin!
+  
   def index
     @users = User.all
   end
@@ -33,5 +36,7 @@ class Admin::EndUsersController < ApplicationController
   def user_params
     params.require(:user).permit(:name, :email, :introduction, :profile_image)
   end
+  
+  
   
 end
