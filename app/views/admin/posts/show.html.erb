@@ -26,13 +26,28 @@
   </div>
 
   <!-- 投稿画像 -->
-  <% if @post.image.attached? %>
-    <div class="row mb-3">
-      <div class="col-md-12">
-        <%= image_tag @post.image, size: "300x300", class: "img-fluid" %>
+    <% if @post.images.attached? %>
+      <div class="row mb-3">
+        <div class="col-md-12">
+          <div class="d-flex flex-wrap">
+            <% @post.images.each_with_index do |image, index| %>
+              <div class="mb-2" style="width: 23%; margin-right: 2%; margin-bottom: 10px;">
+                <%= image_tag image, class: "img-fluid", style: "max-height: 200px; object-fit: cover;" %>
+              </div>
+              <% if (index + 1) % 4 == 0 %>
+                <div class="w-100"></div> <!-- 4枚ごとに改行 -->
+              <% end %>
+            <% end %>
+          </div>
+        </div>
       </div>
-    </div>
-  <% end %>
+    <% elsif @post.image.attached? %>
+      <div class="row mb-3">
+        <div class="col-md-12 d-flex justify-content-center">
+          <%= image_tag @post.image, size: "300x300", class: "img-fluid" %>
+        </div>
+      </div>
+    <% end %>
 
   <!-- 削除ボタン -->
   <div class="row mb-3">

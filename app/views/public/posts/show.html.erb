@@ -1,4 +1,5 @@
 <div class="container mt-5 pt-5">
+  <!-- 投稿者情報 -->
   <div class="d-flex align-items-center mb-4">
     <%= link_to end_user_path(@post.user) do %>
       <%= image_tag @post.user.profile_image, size: "50x50", class: "rounded-circle mr-3" %>
@@ -7,28 +8,46 @@
       <%= link_to @post.user.name, end_user_path(@post.user), class: "font-weight-bold" %>
     </div>
   </div>
+
+  <!-- タイトル -->
+  <div class="text-center mb-3">
+    <h2><%= @post.title %></h2>
+  </div>
+
+  <!-- 画像 -->
+  <% if @post.images.attached? %>
+    <div class="d-flex justify-content-center flex-wrap mb-4">
+      <% Array(@post.images).each do |image| %>
+        <%= image_tag image, class: "img-fluid rounded mx-2 mb-3", style: "max-width: 300px; height: auto; object-fit: cover;" %>
+      <% end %>
+    </div>
+  <% end %>
+
+  <!-- 本文 -->
+  <p><%= @post.body %></p>
+
+  <!-- いいねとコメント -->
   <div class="d-flex justify-content-between align-items-center mb-3">
-    <h2 class="mr-3"><%= @post.title %></h2>
     <div class="d-flex align-items-center">
       <span class="mr-3"><i class="fa-regular fa-heart"></i><%= @post.favorites.count %></span>
       <span id="comment_count"><i class="fa-regular fa-comment-dots"></i><%= @post.post_comments.count %></span>
     </div>
   </div>
-  <p><%= @post.body %></p>
-  <% if @post.image.attached? %>
-    <div class="mb-4">
-      <%= image_tag @post.image, size: "300x300", class: "img-fluid rounded" %>
-    </div>
-  <% end %>
+
+  <!-- 編集・削除ボタン -->
   <% if @post.present? && @post.user_id == current_user.id %>
     <div class="d-flex justify-content-start mb-4">
       <%= link_to "編集", edit_post_path(@post), class: "btn btn-warning mr-2" %>
       <%= link_to "削除", post_path(@post), method: :delete, data: { confirm: '本当に削除してよろしいですか？' }, class: "btn btn-danger" %>
     </div>
   <% end %>
+
+  <!-- お気に入りボタン -->
   <div id="favorite_btn_<%= @post.id %>" class="mb-4">
     <%= render "public/favorites/btn", post: @post %>
   </div>
+
+  <!-- コメント関連 -->
   <div id="comment_counter" class="mb-4">
     <%= render "public/post_comments/counter", post: @post %>
   </div>

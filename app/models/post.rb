@@ -2,13 +2,14 @@ class Post < ApplicationRecord
 
   belongs_to :user
   
-  has_one_attached :image
+  has_many_attached :images
   
   has_many :post_comments, dependent: :destroy
   has_many :favorites, dependent: :destroy
 
   validates :title, presence: true
   validates :body, presence: true, length: { maximum: 200 }
+  validate :validate_images_count
   
   def favorited_by?(user)
     favorites.exists?(user_id: user.id)
@@ -25,6 +26,14 @@ class Post < ApplicationRecord
       @post = Post.where("title LIKE?","%#{word}%")
     else
       @post = Post.all
+    end
+  end
+  
+  private
+
+  def validate_images_count
+    if images.size > 4
+      errors.add(:images, 'は最大4枚までです')
     end
   end
 

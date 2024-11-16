@@ -1,7 +1,7 @@
 <div class="container mt-5 pt-5 mb-5">
   <!-- プロフィール情報 -->
   <div class="text-center mb-5">
-    <%= image_tag @user.get_profile_image(100,100), class: "rounded-circle mb-3" %>
+    <%= image_tag @user.get_profile_image(100, 100), class: "rounded-circle mb-3" %>
     <h3><%= @user.name %></h3>
     <p><strong>自己紹介:</strong> <%= @user.introduction %></p>
   </div>
@@ -11,15 +11,27 @@
   <div class="row">
     <% @posts.each do |post| %>
       <div class="col-md-4 mb-4">
-        <div class="card bg-light">
+        <div class="card bg-light h-100">
           <div class="card-body">
             <%= link_to post_path(post.id) do %>
-              <% if post.image.attached? %>
-                <%= image_tag post.image, class: "img-fluid mb-3", style: "max-height: 200px; object-fit: cover;" %>
-              <% end %>
-              <h5 class="card-title"><%= post.title %></h5>
+              <div class="d-flex flex-column align-items-center mb-3">
+                <% if post.images.attached? %>
+                  <!-- 画像を2列表示 -->
+                  <div class="d-flex flex-wrap justify-content-center mb-3">
+                    <% post.images.each_with_index do |image, index| %>
+                      <div class="mb-2" style="width: 45%; margin-right: <% if index.even? %>5%<% end %>;">
+                        <%= image_tag image, class: "img-fluid", style: "max-height: 150px; object-fit: cover;" %>
+                      </div>
+                    <% end %>
+                  </div>
+                <% elsif post.image.attached? %>
+                  <!-- 画像が1枚だけの場合の処理 -->
+                  <%= image_tag post.image, class: "img-fluid mb-3", style: "max-height: 150px; object-fit: cover; max-width: 100%;" %>
+                <% end %>
+                <h5 class="card-title text-center"><%= post.title %></h5>
+              </div>
             <% end %>
-            <div class="d-flex justify-content-between">
+            <div class="d-flex justify-content-between mt-3">
               <div>
                 ♡ <%= post.favorites.count %>
               </div>

@@ -19,7 +19,12 @@
         <!-- 画像 -->
         <div class="form-group">
           <h4 class="mb-2">画像</h4>
-          <%= f.file_field :image, accept: "image/*", class: "form-control-file" %>
+          <%= f.file_field :images, multiple: true, accept: "image/*", class: "form-control-file" %>
+          <% if @post.errors[:images].any? %>
+            <div class="text-danger">
+              <%= @post.errors[:images].join(", ") %>
+            </div>
+          <% end %>
         </div>
 
         <!-- 投稿ボタン -->

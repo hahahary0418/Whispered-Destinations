@@ -10,19 +10,24 @@
     </div>
   </div>
   <div class="row">
-    <% @posts.each do |post| %>
-      <div class="col-md-4 mb-3">
-        <div class="card">
-          <%= link_to admin_post_path(post.id) do %>
-            <% if post.image.attached? %>
-              <%= image_tag post.image, class: "card-img-top", style: "height: 150px; object-fit: cover;" %>
-            <% end %>
-            <div class="card-body">
-              <h6 class="card-title"><%= post.title %></h6>
+  <% @posts.each do |post| %>
+    <div class="col-md-4 mb-3">
+      <div class="card">
+        <%= link_to admin_post_path(post.id) do %>
+          <% if post.images.attached? %>
+            <div class="d-flex flex-wrap justify-content-center mb-3" style="gap: 10px; padding: 10px;">
+              <% post.images.each_with_index do |image, index| %>
+                <div class="mb-2" style="width: 45%; margin-right: <%= '5%' if index.even? %>;">
+                  <%= image_tag image, class: "card-img-top", style: "max-height: 120px; width: 100%; object-fit: cover;" %>
+                </div>
+              <% end %>
             </div>
           <% end %>
-        </div>
+          <div class="card-body">
+            <h6 class="card-title"><%= post.title %></h6>
+          </div>
+        <% end %>
       </div>
-    <% end %>
-  </div>
+    </div>
+  <% end %>
 </div>

@@ -1,37 +1,51 @@
-<div class="container mt-5 pt-5 mb-5">
-  <h1>投稿一覧</h1>
+<div class="row mt-5 pt-5 mb-5">
+  <% @posts.each do |post| %>
+    <div class="col-md-6">
+      <div class="card bg-light mb-3">
+        <div class="card-body">
+          <!-- ユーザ情報 -->
+          <div class="d-flex align-items-center">
+            <%= link_to end_user_path(post.user) do %>
+              <%= image_tag post.user.profile_image, size: "50x50", class: "rounded-circle mr-3" %>
+            <% end %>
+            <div>
+              <%= link_to post.user.name, end_user_path(post.user), class: "font-weight-bold" %>
+            </div>
+          </div>
+          <hr>
 
-  <div class="row">
-    <% @posts.each do |post| %>
-      <div class="col-md-4 mb-3">
-        <div class="card">
-          <div class="card-body">
-            <!-- 投稿のリンク -->
-            <%= link_to admin_post_path(post) do %>
-              <div class="text-center">
-                <!-- 投稿画像 -->
-                <% if post.image.attached? %>
-                  <%= image_tag post.image, size: "200x200", class: "mb-3", style: "object-fit: cover;" %>
+          <!-- 投稿内容 -->
+          <%= link_to post_path(post.id) do %>
+            <!-- タイトル -->
+            <h5 class="card-title text-center"><%= post.title %></h5>
+            
+            <!-- 画像 -->
+            <% if post.images.attached? %>
+              <div class="d-flex justify-content-center flex-wrap">
+                <% post.images.each_with_index do |image, index| %>
+                  <!-- 画像を均等に並べる -->
+                  <div class="mb-2" style="width: 48%; margin-right: 2%; margin-bottom: 10px;">
+                    <%= image_tag image, class: "img-fluid", style: "max-height: 200px; object-fit: cover;" %>
+                  </div>
+                  <% if (index + 1) % 2 == 0 %>
+                    <div class="w-100"></div> <!-- 2枚ごとに改行 -->
+                  <% end %>
                 <% end %>
-
-                <!-- 投稿タイトル -->
-                <h5 class="card-title"><%= post.title %></h5>
               </div>
             <% end %>
+          <% end %>
 
-            <div class="d-flex justify-content-between mt-2">
-              <!-- いいね数 -->
-              <div>
-                ♡ <%= post.favorites.count %>
-              </div>
-              <!-- コメント数 -->
-              <div>
-                <span id="comment_count"><i class="fa-regular fa-comment-dots"></i><%= post.post_comments.count %></span>
-              </div>
+          <!-- いいねとコメント数 -->
+          <div class="d-flex justify-content-between">
+            <div>
+              ♡ <%= post.favorites.count %>
+            </div>
+            <div>
+              <span id="comment_count"><i class="fa-regular fa-comment-dots"></i><%= post.post_comments.count %></span>
             </div>
           </div>
         </div>
       </div>
-    <% end %>
-  </div>
+    </div>
+  <% end %>
 </div>

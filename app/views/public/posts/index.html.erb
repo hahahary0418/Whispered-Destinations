@@ -3,6 +3,7 @@
     <div class="col-md-6">
       <div class="card bg-light mb-3">
         <div class="card-body">
+          <!-- ユーザ情報 -->
           <div class="d-flex align-items-center">
             <%= link_to end_user_path(post.user) do %>
               <%= image_tag post.user.profile_image, size: "50x50", class: "rounded-circle mr-3" %>
@@ -12,14 +13,20 @@
             </div>
           </div>
           <hr>
+          <!-- 投稿内容 -->
           <%= link_to post_path(post.id) do %>
-            <div class="d-flex align-items-center">
-              <% if post.image.attached? %>
-                <%= image_tag post.image, class: "img-fluid rounded mb-3", style: "max-width: 200px; height: auto; object-fit: cover;" %>
-              <% end %>
-              <h5 class="card-title ml-3"><%= post.title %></h5>
-            </div>
+            <!-- タイトル -->
+            <h5 class="card-title text-center"><%= post.title %></h5>
+            <!-- 画像 -->
+            <% if post.images.attached? %>
+              <div class="d-flex justify-content-center flex-wrap">
+                <% post.images.each do |image| %>
+                  <%= image_tag image, class: "img-fluid rounded mb-3 mx-2", style: "max-width: 200px; height: auto; object-fit: cover;" %>
+                <% end %>
+              </div>
+            <% end %>
           <% end %>
+          <!-- いいねとコメント数 -->
           <div class="d-flex justify-content-between">
             <div>
               ♡ <%= post.favorites.count %>

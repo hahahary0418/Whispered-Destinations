@@ -26,11 +26,15 @@
         <div class="card bg-light">
           <div class="card-body">
             <%= link_to post_path(post.id) do %>
-              <div class="d-flex">
-                <% if post.image.attached? %>
-                  <%= image_tag post.image, class: "img-fluid mr-3", style: "max-height: 100px; object-fit: cover;" %>
+              <div class="d-flex flex-column align-items-center">
+                <% if post.images.attached? %>
+                  <div class="d-flex justify-content-center flex-wrap mb-3">
+                    <% post.images.each do |image| %>
+                      <%= image_tag image, class: "img-fluid mr-2 mb-2", style: "max-height: 100px; object-fit: cover;" %>
+                    <% end %>
+                  </div>
                 <% end %>
-                <h5 class="card-title align-self-center"><%= post.title %></h5>
+                <h5 class="card-title text-center"><%= post.title %></h5>
               </div>
             <% end %>
             <div class="d-flex justify-content-between mt-3">
