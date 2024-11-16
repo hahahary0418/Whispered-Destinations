@@ -1,0 +1,40 @@
+<div class="container mt-5 pt-5 mb-5">
+  <h2 class="text-center mt-5"><%= @group.name %></h2>
+  <h4 class="text-center">承認待ち一覧</h4>
+
+  <div class="row mt-5">
+    <div class="col-11 col-md-12 mx-auto">
+    <% if @permits.present? %>
+      <div class="table-responsive">
+        <table class="table table-hover text-nowrap bg-light">
+          <thead class="thead-dark">
+            <tr>
+              <th>名前</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @permits.each do |permit| %>
+              <tr>
+                <td><%= link_to permit.user.name, end_user_path(permit.user.id), class: "text-dark" %></td>
+                <td class="text-right">
+                  <%= link_to '加入許可', group_group_users_path(@group, permit_id: permit.id), method: :post, class: "btn btn-sm btn-success" %>
+                </td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    <% else %>
+      <P class="text-center">承認待ちユーザーはいません。</P>
+    <% end %>
+    </div>
+  </div>
+
+  <div class="row mt-5">
+    <div class="col-md-9 mx-auto">
+    <p class="text-center"><%= link_to "戻る", group_path(@group), class: 'text-dark font-weight-bold' %></p>
+    </div>
+  </div>
+
+</div>
