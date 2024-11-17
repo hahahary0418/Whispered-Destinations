@@ -2,13 +2,20 @@
   <div class="card mb-5">
     <div class="card-body">
       <h5 class="card-title">コメントを投稿</h5>
-      <%= form_with model: [@post, @post_comment], local: false do |f| %>
-        <div class="form-group">
-          <%= f.text_area :comment, rows: 5, placeholder: "コメントをここに", class: "form-control" %>
+
+      <% if current_user.guest? %>
+        <div class="alert alert-warning" role="alert">
+          ゲストユーザーはコメントを投稿できません。ログインしてから投稿してください。
         </div>
-        <div class="form-group text-right">
-          <%= f.submit "送信する", class: "btn btn-primary" %>
-        </div>
+      <% else %>
+        <%= form_with model: [@post, @post_comment], local: false do |f| %>
+          <div class="form-group">
+            <%= f.text_area :comment, rows: 5, placeholder: "コメントをここに", class: "form-control" %>
+          </div>
+          <div class="form-group text-right">
+            <%= f.submit "送信する", class: "btn btn-primary" %>
+          </div>
+        <% end %>
       <% end %>
     </div>
   </div>

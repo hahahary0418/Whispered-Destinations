@@ -12,7 +12,7 @@
         </div>
       </div>
 
-      <% if current_user == @user %>
+      <% if current_user == @user && !@user.guest? %>
         <%= link_to "編集する", edit_end_user_path(@user), class: "btn btn-primary mt-3" %>
       <% end %>
     </div>

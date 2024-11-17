@@ -1,13 +1,22 @@
 <div class="container mt-5 mb-5 pt-5">
   <div class="row mb-3">
-    <!-- 投稿したユーザー情報 -->
+    <!-- 投稿したユーザー情報と作成日時 -->
     <div class="col-md-12">
-      <%= link_to admin_end_user_path(@post.user) do %>
+      <div class="d-flex justify-content-between align-items-center">
         <div class="d-flex align-items-center">
-          <%= image_tag @post.user.profile_image, size: "50x50", class: "rounded-circle mr-2" %>
-          <h5><%= @post.user.name %></h5>
+          <%= link_to admin_end_user_path(@post.user) do %>
+            <div class="d-flex align-items-center">
+              <%= image_tag @post.user.profile_image, size: "50x50", class: "rounded-circle mr-2" %>
+              <h5><%= @post.user.name %></h5>
+            </div>
+          <% end %>
         </div>
-      <% end %>
+        <div class="text-muted">
+          <small>
+            作成日時: <%= @post.created_at.in_time_zone("Asia/Tokyo").strftime("%Y-%m-%d %H:%M") %>
+          </small>
+        </div>
+      </div>
     </div>
   </div>
 
@@ -26,28 +35,28 @@
   </div>
 
   <!-- 投稿画像 -->
-    <% if @post.images.attached? %>
-      <div class="row mb-3">
-        <div class="col-md-12">
-          <div class="d-flex flex-wrap">
-            <% @post.images.each_with_index do |image, index| %>
-              <div class="mb-2" style="width: 23%; margin-right: 2%; margin-bottom: 10px;">
-                <%= image_tag image, class: "img-fluid", style: "max-height: 200px; object-fit: cover;" %>
-              </div>
-              <% if (index + 1) % 4 == 0 %>
-                <div class="w-100"></div> <!-- 4枚ごとに改行 -->
-              <% end %>
+  <% if @post.images.attached? %>
+    <div class="row mb-3">
+      <div class="col-md-12">
+        <div class="d-flex flex-wrap">
+          <% @post.images.each_with_index do |image, index| %>
+            <div class="mb-2" style="width: 23%; margin-right: 2%; margin-bottom: 10px;">
+              <%= image_tag image, class: "img-fluid", style: "max-height: 200px; object-fit: cover;" %>
+            </div>
+            <% if (index + 1) % 4 == 0 %>
+              <div class="w-100"></div> <!-- 4枚ごとに改行 -->
             <% end %>
-          </div>
+          <% end %>
         </div>
       </div>
-    <% elsif @post.image.attached? %>
-      <div class="row mb-3">
-        <div class="col-md-12 d-flex justify-content-center">
-          <%= image_tag @post.image, size: "300x300", class: "img-fluid" %>
-        </div>
+    </div>
+  <% elsif @post.images.attached? %>
+    <div class="row mb-3">
+      <div class="col-md-12 d-flex justify-content-center">
+        <%= image_tag @post.images, size: "300x300", class: "img-fluid" %>
       </div>
-    <% end %>
+    </div>
+  <% end %>
 
   <!-- 削除ボタン -->
   <div class="row mb-3">

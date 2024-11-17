@@ -20,7 +20,11 @@
           <a class="navbar-brand p-2" href="/"><%= "Whispered Destinations" %></a>
           <div class="text-center">
             <% if user_signed_in? %>
-              <strong>ようこそ、<%= current_user.name %>さん!</strong>
+              <% if current_user.email.include?("guest@example.com") %>
+                <strong>ゲストとしてログイン中</strong>
+              <% else %>
+                <strong>ようこそ、<%= current_user.name %>さん!</strong>
+              <% end %>
             <% end %>
           </div>
           <% if admin_signed_in? %>
@@ -57,6 +61,7 @@
                 <%= link_to "About", about_path, class: "dropdown-item" %>
                 <%= link_to "新規登録", new_user_registration_path, class: "dropdown-item" %>
                 <%= link_to "ログイン", new_user_session_path, class: "dropdown-item" %>
+                <%= link_to 'ゲストログイン（閲覧用）', homes_guest_sign_in_path, method: :post, class: "dropdown-item" %>
               </div>
           <% end %>
         </div>

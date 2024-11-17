@@ -17,18 +17,15 @@ class Public::GroupsController < ApplicationController
   end
 
   def create
-    @group = Group.find(params[:group_id])
-    @permit = Permit.find(params[:permit_id])
-  
-    # 作成者を自動的にそのグループに追加
-    GroupUser.create(user_id: @permit.user_id, group_id: @group.id)
-  
-    # もしグループ作成者（オーナー）をグループに参加させる場合
-    GroupUser.create(user_id: @group.owner_id, group_id: @group.id)
-  
-    @permit.destroy # 参加希望者リストから削除する
-  
-    redirect_to group_path(@group), notice: "参加が承認され、あなたはグループに参加しました"
+    @group = Group.new(group_params)
+    @group.owner_id = current_user.id
+    if @group.save
+      # 現在ログインしているユーザーを自動的にそのグループに参加させる
+      @group.users << current_user
+      redirect_to @group, notice: 'グループが作成され、あなたは自動的に参加しました。'
+    else
+      render :new
+    end
   end
 
   def edit
@@ -37,7 +34,7 @@ class Public::GroupsController < ApplicationController
 
   def update
     if @group.update(group_params)
-      redirect_to groups_path
+      redirect_to group_path(@group)
     else
       render "edit"
     end

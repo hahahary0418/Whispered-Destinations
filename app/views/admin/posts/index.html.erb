@@ -1,51 +1,50 @@
-<div class="row mt-5 pt-5 mb-5">
-  <% @posts.each do |post| %>
-    <div class="col-md-6">
-      <div class="card bg-light mb-3">
-        <div class="card-body">
-          <!-- ユーザ情報 -->
-          <div class="d-flex align-items-center">
-            <%= link_to admin_end_user_path(post.user) do %>
-              <%= image_tag post.user.profile_image, size: "50x50", class: "rounded-circle mr-3" %>
-            <% end %>
-            <div>
-              <%= link_to post.user.name, admin_end_user_path(post.user), class: "font-weight-bold" %>
-            </div>
-          </div>
-          <hr>
-
-          <!-- 投稿内容 -->
-          <%= link_to admin_post_path(post.id) do %>
-            <!-- タイトル -->
-            <h5 class="card-title text-center"><%= post.title %></h5>
-            
-            <!-- 画像 -->
-            <% if post.images.attached? %>
-              <div class="d-flex justify-content-center flex-wrap">
-                <% post.images.each_with_index do |image, index| %>
-                  <!-- 画像を均等に並べる -->
-                  <div class="mb-2" style="width: 48%; margin-right: 2%; margin-bottom: 10px;">
-                    <%= image_tag image, class: "img-fluid", style: "max-height: 200px; object-fit: cover;" %>
-                  </div>
-                  <% if (index + 1) % 2 == 0 %>
-                    <div class="w-100"></div> <!-- 2枚ごとに改行 -->
-                  <% end %>
-                <% end %>
+<div class="container mt-5 pt-5 mb-5">
+  <h4 class="mb-4">投稿一覧</h4>
+  <div class="row">
+    <% @posts.order(created_at: :desc).each do |post| %> <!-- 新しい順に並べ替え -->
+      <div class="col-md-4 mb-4">
+        <div class="card bg-light h-100">
+          <div class="card-body">
+            <!-- ユーザ情報 -->
+            <div class="d-flex align-items-center mb-3">
+              <%= link_to admin_end_user_path(post.user) do %>
+                <%= image_tag post.user.profile_image, size: "50x50", class: "rounded-circle mr-3" %>
+              <% end %>
+              <div>
+                <%= link_to post.user.name, admin_end_user_path(post.user), class: "font-weight-bold" %>
               </div>
-            <% end %>
-          <% end %>
-
-          <!-- いいねとコメント数 -->
-          <div class="d-flex justify-content-between">
-            <div>
-              ♡ <%= post.favorites.count %>
+              <!-- 作成日時 -->
+              <div class="ml-auto text-muted">
+                <%= post.created_at.in_time_zone("Asia/Tokyo").strftime("%Y-%m-%d %H:%M") %> <!-- 日本時間に変換 -->
+              </div>
             </div>
-            <div>
-              <span id="comment_count"><i class="fa-regular fa-comment-dots"></i><%= post.post_comments.count %></span>
+            <hr>
+
+            <!-- 投稿内容 -->
+            <%= link_to admin_post_path(post.id) do %>
+              <!-- タイトル -->
+              <h5 class="card-title mb-3"><%= post.title %></h5>
+
+              <!-- 画像 (1枚目のみ表示) -->
+              <% if post.images.attached? %>
+                <div class="mb-3" style="width: 100%; overflow: hidden;">
+                  <%= image_tag post.images.first, class: "img-fluid", style: "max-height: 250px; width: 100%; object-fit: cover;" %>
+                </div>
+              <% end %>
+            <% end %>
+
+            <!-- いいねとコメント数 -->
+            <div class="d-flex justify-content-between mt-3">
+              <div>
+                ♡ <%= post.favorites.count %>
+              </div>
+              <div>
+                <span id="comment_count"><i class="fa-regular fa-comment-dots"></i> <%= post.post_comments.count %></span>
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
-  <% end %>
+    <% end %>
+  </div>
 </div>

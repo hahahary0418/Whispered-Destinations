@@ -39,6 +39,7 @@ Rails.application.routes.draw do
       resources :messages, only: [:create]
     end
     get "groups/:id/permits" => "groups#permits", as: :permits
+    post '/homes/guest_sign_in', to: 'homes#guest_sign_in'
   end
   
   devise_for :admin, skip: [:registrations, :passwords] ,controllers: {
@@ -52,6 +53,7 @@ Rails.application.routes.draw do
   
   devise_scope :user do
     get 'users/sign_out', to: 'devise/sessions#destroy'
+    post 'users/guest_sign_in', to: 'users/sessions#guest_sign_in'
   end
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end

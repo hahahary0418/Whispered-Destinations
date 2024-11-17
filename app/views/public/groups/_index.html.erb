@@ -1,20 +1,26 @@
 <table class="table table-hover table-inverse">
-    <thead>
+  <thead>
+    <tr>
+      <th></th>
+      <th>グループ名</th>
+      <th>紹介文</th>
+      <th>メンバー数</th>
+      <th>参加状況</th> <!-- 追加 -->
+    </tr>
+  </thead>
+  <tbody>
+    <% groups.each do |group| %>
       <tr>
-        <th></th>
-        <th>グループ名</th>
-        <th>紹介文</th>
-        <th>メンバー数</th>
+        <td><%= image_tag group.get_image, size:"50x50" %></td>
+        <td><%= link_to group.name, group_path(group) %></td>
+        <td><%= group.introduction %></td>
+        <td><%= group.group_users.count %></td>
+        <td>
+          <% if current_user.groups.include?(group) %>
+            <span class="badge bg-success">参加済み</span> <!-- 参加済みの場合 -->
+          <% end %>
+        </td>
       </tr>
-    </thead>
-    <tbody>
-      <% groups.each do |group| %>
-        <tr>
-          <td><%= image_tag group.get_image, size:"50x50" %></td>
-          <td><%= link_to group.name, group_path(group) %></td>
-          <td><%= group.introduction %></td>
-          <td><%= group.group_users.count %></td>
-        </tr>
-      <% end %>
-    </tbody>
+    <% end %>
+  </tbody>
 </table>

@@ -16,6 +16,12 @@ class Public::SessionsController < Devise::SessionsController
       respond_with resource, location: after_sign_in_path_for(resource)
     end
   end
+  
+  def guest_sign_in
+    user = User.guest
+    sign_in user
+    redirect_to root_path, notice: 'ゲストユーザーとしてログインしました。'
+  end
 
   protected
 

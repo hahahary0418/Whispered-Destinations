@@ -9,8 +9,14 @@
     退会する場合は、「退会する」をクリックしてください。
   </p>
 
-  <div class="text-center">
-    <%= link_to "退会しない", end_users_mypage_path, class: "btn btn-secondary mr-3" %>
-    <%= link_to "退会する", end_users_withdraw_path, method: :patch, data: { confirm: "本当に退会しますか？" }, class: "btn btn-danger" %>
-  </div>
+  <% unless current_user.guest? %>
+    <div class="text-center">
+      <%= link_to "退会しない", end_users_mypage_path, class: "btn btn-secondary mr-3" %>
+      <%= link_to "退会する", end_users_withdraw_path, method: :patch, data: { confirm: "本当に退会しますか？" }, class: "btn btn-danger" %>
+    </div>
+  <% else %>
+    <div class="text-center">
+      <p>ゲストユーザーは退会できません。</p>
+    </div>
+  <% end %>
 </div>

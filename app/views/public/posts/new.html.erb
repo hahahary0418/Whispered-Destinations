@@ -1,37 +1,43 @@
 <div class="container mt-5 mb-5">
   <h1 class="mb-4 mt-5 pt-5">新規投稿</h1>
 
-  <div class="card bg-light">
-    <div class="card-body">
-      <%= form_with model: Post.new, url: '/posts', local: true do |f| %>
-        <!-- タイトル -->
-        <div class="form-group">
-          <h4 class="mb-2">タイトル</h4>
-          <%= f.text_field :title, class: "form-control" %>
-        </div>
-
-        <!-- 本文 -->
-        <div class="form-group">
-          <h4 class="mb-2">本文</h4>
-          <%= f.text_area :body, class: "form-control", rows: 5 %>
-        </div>
-
-        <!-- 画像 -->
-        <div class="form-group">
-          <h4 class="mb-2">画像</h4>
-          <%= f.file_field :images, multiple: true, accept: "image/*", class: "form-control-file" %>
-          <% if @post.errors[:images].any? %>
-            <div class="text-danger">
-              <%= @post.errors[:images].join(", ") %>
-            </div>
-          <% end %>
-        </div>
-
-        <!-- 投稿ボタン -->
-        <div class="form-group text-right">
-          <%= f.submit '投稿', class: "btn btn-primary" %>
-        </div>
-      <% end %>
+  <% if current_user.guest? %>
+    <div class="alert alert-warning" role="alert">
+      ゲストユーザーは投稿できません。ログインしてから投稿してください。
     </div>
-  </div>
+  <% else %>
+    <div class="card bg-light">
+      <div class="card-body">
+        <%= form_with model: Post.new, url: '/posts', local: true do |f| %>
+          <!-- タイトル -->
+          <div class="form-group">
+            <h4 class="mb-2">タイトル</h4>
+            <%= f.text_field :title, class: "form-control" %>
+          </div>
+
+          <!-- 本文 -->
+          <div class="form-group">
+            <h4 class="mb-2">本文</h4>
+            <%= f.text_area :body, class: "form-control", rows: 5 %>
+          </div>
+
+          <!-- 画像 -->
+          <div class="form-group">
+            <h4 class="mb-2">画像</h4>
+            <%= f.file_field :images, multiple: true, accept: "image/*", class: "form-control-file" %>
+            <% if @post.errors[:images].any? %>
+              <div class="text-danger">
+                <%= @post.errors[:images].join(", ") %>
+              </div>
+            <% end %>
+          </div>
+
+          <!-- 投稿ボタン -->
+          <div class="form-group text-right">
+            <%= f.submit '投稿', class: "btn btn-primary" %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  <% end %>
 </div>

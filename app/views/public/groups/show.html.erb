@@ -20,7 +20,10 @@
     <div class="col-md-8 position-relative">
       <h2 class="d-flex justify-content-between align-items-center">
         Group Detail
-        <%= link_to "チャット", chat_group_path(@group), class: "btn btn-primary ml-auto" %> <!-- チャットボタンを右に配置 -->
+        <!-- グループに参加している場合のみチャットボタンを表示 -->
+        <% if @group.group_users.exists?(user_id: current_user.id) %>
+          <%= link_to "チャット", chat_group_path(@group), class: "btn btn-primary ml-auto" %>
+        <% end %> <!-- チャットボタンを右に配置 -->
       </h2>
       <table class="table table-hover table-inverse">
         <thead>
@@ -41,7 +44,7 @@
                 <%= link_to 'グループ退出', group_group_users_path(@group), method: :delete, class: "btn btn-sm btn-danger d-none d-lg-inline", data: { confirm: "本当にグループを退出しますか？" } %>
               <% elsif @group.permits.exists?(user_id: current_user.id) %>
                 <%= link_to '申請取消', group_permits_path(@group), method: :delete, class: "btn btn-sm btn-danger" %>
-              <% else %>
+              <% elsif !current_user.guest? %>
                 <%= link_to '加入申請', group_permits_path(@group), method: :post, class: "btn btn-sm btn-success" %>
               <% end %>
               <% if @group.owner_id == current_user.id %>
