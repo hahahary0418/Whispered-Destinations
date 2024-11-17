@@ -5,17 +5,17 @@
         <div class="card-body">
           <!-- ユーザ情報 -->
           <div class="d-flex align-items-center">
-            <%= link_to end_user_path(post.user) do %>
+            <%= link_to admin_end_user_path(post.user) do %>
               <%= image_tag post.user.profile_image, size: "50x50", class: "rounded-circle mr-3" %>
             <% end %>
             <div>
-              <%= link_to post.user.name, end_user_path(post.user), class: "font-weight-bold" %>
+              <%= link_to post.user.name, admin_end_user_path(post.user), class: "font-weight-bold" %>
             </div>
           </div>
           <hr>
 
           <!-- 投稿内容 -->
-          <%= link_to post_path(post.id) do %>
+          <%= link_to admin_post_path(post.id) do %>
             <!-- タイトル -->
             <h5 class="card-title text-center"><%= post.title %></h5>
             
