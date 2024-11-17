@@ -24,9 +24,9 @@
                       </div>
                     <% end %>
                   </div>
-                <% elsif post.image.attached? %>
+                <% elsif post.images.attached? %>
                   <!-- 画像が1枚だけの場合の処理 -->
-                  <%= image_tag post.image, class: "img-fluid mb-3", style: "max-height: 150px; object-fit: cover; max-width: 100%;" %>
+                  <%= image_tag post.images, class: "img-fluid mb-3", style: "max-height: 150px; object-fit: cover; max-width: 100%;" %>
                 <% end %>
                 <h5 class="card-title text-center"><%= post.title %></h5>
               </div>

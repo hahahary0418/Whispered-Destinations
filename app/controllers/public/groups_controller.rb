@@ -57,6 +57,12 @@ class Public::GroupsController < ApplicationController
     @group = Group.find(params[:id])
     @permits = @group.permits
   end
+  
+  def chat
+    @group = Group.find(params[:id])
+    @messages = @group.messages.includes(:user) # メッセージ一覧
+    @message = Message.new                     # 新規メッセージ投稿用
+  end
 
   private
 

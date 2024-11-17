@@ -1,0 +1,21 @@
+<div class="container mt-5 pt-5 mb-5 pb-5">
+  <h2><%= @group.name %> チャット</h2>
+
+  <!-- メッセージ一覧 -->
+  <div id="messages" class="border p-3 mb-3" style="height: 300px; overflow-y: auto;">
+    <% @messages.each do |message| %>
+      <div class="message mb-2">
+        <strong><%= message.user.name %>:</strong>
+        <span><%= message.content %></span>
+      </div>
+    <% end %>
+  </div>
+
+  <!-- 新規メッセージ投稿フォーム -->
+  <%= form_with(model: [@group, @message], local: true, class: "form-inline") do |f| %>
+    <div class="form-group">
+      <%= f.text_field :content, class: "form-control mr-2", placeholder: "メッセージを入力" %>
+    </div>
+    <%= f.submit "送信", class: "btn btn-primary" %>
+  <% end %>
+</div>

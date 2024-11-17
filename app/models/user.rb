@@ -12,9 +12,11 @@ class User < ApplicationRecord
   has_many :posts, dependent: :destroy
   has_many :post_comments, dependent: :destroy
   has_many :favorites, dependent: :destroy
+  has_many :favorite_posts, through: :favorites, source: :post
   has_many :group_users, dependent: :destroy
   has_many :permits, dependent: :destroy
   has_many :groups, through: :group_users
+  has_many :messages, dependent: :destroy
   has_one_attached :profile_image
   
   # 画像処理

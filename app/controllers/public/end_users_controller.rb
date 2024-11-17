@@ -35,6 +35,11 @@ class Public::EndUsersController < ApplicationController
     redirect_to root_path, notice: 'アカウントは退会処理されました。'
   end
   
+  def favorites
+    @user = User.find(params[:id]) # 現在のユーザーを取得
+    @favorite_posts = @user.favorites.includes(:post).map(&:post) # ユーザーがいいねした投稿を取得
+  end
+  
   private
   
   def user_params

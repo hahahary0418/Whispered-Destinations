@@ -17,8 +17,11 @@
     </div>
 
     <!-- 右側にグループの詳細情報を表示 -->
-    <div class="col-md-8">
-      <h2>Group Detail</h2>
+    <div class="col-md-8 position-relative">
+      <h2 class="d-flex justify-content-between align-items-center">
+        Group Detail
+        <%= link_to "チャット", chat_group_path(@group), class: "btn btn-primary ml-auto" %> <!-- チャットボタンを右に配置 -->
+      </h2>
       <table class="table table-hover table-inverse">
         <thead>
           <tr>
@@ -35,14 +38,14 @@
             <td><%= @group.introduction %></td>
             <td>
               <% if @group.group_users.exists?(user_id: current_user.id) %>
-                <%= link_to 'グループ退出', group_group_users_path(@group), method: :delete, class: "btn btn-sm btn-danger", data: { confirm: "本当にグループを退出しますか？" } %>
+                <%= link_to 'グループ退出', group_group_users_path(@group), method: :delete, class: "btn btn-sm btn-danger d-none d-lg-inline", data: { confirm: "本当にグループを退出しますか？" } %>
               <% elsif @group.permits.exists?(user_id: current_user.id) %>
                 <%= link_to '申請取消', group_permits_path(@group), method: :delete, class: "btn btn-sm btn-danger" %>
               <% else %>
                 <%= link_to '加入申請', group_permits_path(@group), method: :post, class: "btn btn-sm btn-success" %>
               <% end %>
               <% if @group.owner_id == current_user.id %>
-                <div class="dropdown">
+                <div class="dropdown mt-2">
                   <button class="btn btn-sm btn-secondary dropdown-toggle"
                           type="button" id="dropdownMenu1" data-toggle="dropdown"
                           aria-haspopup="true" aria-expanded="false">

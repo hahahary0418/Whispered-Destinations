@@ -19,21 +19,24 @@ Rails.application.routes.draw do
     get "end_users/mypage" => "end_users#mypage"
     get '/end_users/check' => 'end_users#check'
     patch '/end_users/withdraw' => 'end_users#withdraw'
-    resources :end_users, only: [:show, :edit, :update]
+    resources :end_users, only: [:show, :edit, :update]do
+      member do
+        get :favorites
+      end
+    end
     resources :posts, only: [:new, :create, :index, :show, :edit, :update, :destroy] do
       resource :favorite, only: [:create, :destroy]
       resources :post_comments, only: [:create, :destroy]
     end
     get "/search", to: "searches#search"
-  
-    # グループリソースにdestroyを追加
     resources :groups, except: [:destroy] do
       resource :permits, only: [:create, :destroy]
       resource :group_users, only: [:create, :destroy]
-      # グループ削除用のルートを追加
       member do
+        get :chat
         delete :destroy
       end
+      resources :messages, only: [:create]
     end
     get "groups/:id/permits" => "groups#permits", as: :permits
   end
