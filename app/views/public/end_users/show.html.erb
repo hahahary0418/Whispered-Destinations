@@ -7,36 +7,36 @@
   </div>
 
   <!-- ユーザーの投稿一覧 -->
-  <h4 class="mb-4">posts</h4>
+  <h4 class="mb-4">投稿一覧</h4>
   <div class="row">
-    <% @posts.each do |post| %>
-      <div class="col-md-4 mb-4">
+    <% @posts.order(created_at: :desc).each do |post| %>
+      <div class="col-lg-4 col-md-6 mb-4">
         <div class="card bg-light h-100">
-          <div class="card-body">
+          <div class="card-body p-0">
             <%= link_to post_path(post.id) do %>
-              <div class="d-flex flex-column align-items-center mb-3">
-                <% if post.images.attached? %>
-                  <!-- 画像を2列表示 -->
-                  <div class="d-flex flex-wrap justify-content-center mb-3">
-                    <% post.images.each_with_index do |image, index| %>
-                      <div class="mb-2" style="width: 45%; margin-right: <% if index.even? %>5%<% end %>;">
-                        <%= image_tag image, class: "img-fluid", style: "max-height: 150px; object-fit: cover;" %>
-                      </div>
-                    <% end %>
-                  </div>
-                <% elsif post.images.attached? %>
-                  <!-- 画像が1枚だけの場合の処理 -->
-                  <%= image_tag post.images, class: "img-fluid mb-3", style: "max-height: 150px; object-fit: cover; max-width: 100%;" %>
-                <% end %>
-                <h5 class="card-title text-center"><%= post.title %></h5>
-              </div>
+              <!-- 1枚目の画像 -->
+              <% if post.images.attached? %>
+                <%= image_tag post.images.first, class: "img-fluid w-100 mb-3", style: "object-fit: cover; max-height: 250px;" %>
+              <% end %>
             <% end %>
-            <div class="d-flex justify-content-between mt-3">
-              <div>
-                ♡ <%= post.favorites.count %>
+            
+            <div class="p-3">
+              <!-- タイトルと投稿作成日時 -->
+              <div class="d-flex justify-content-between align-items-center mb-2">
+                <h5 class="card-title m-0"><%= post.title %></h5>
+                <small class="text-muted">
+                  <%= post.created_at.in_time_zone('Asia/Tokyo').strftime('%Y-%m-%d %H:%M') %>
+                </small>
               </div>
-              <div>
-                <span id="comment_count"><i class="fa-regular fa-comment-dots"></i>　<%= post.post_comments.count %></span>
+
+              <!-- いいねとコメント数 -->
+              <div class="d-flex justify-content-between">
+                <div>
+                  ♡ <%= post.favorites.count %>
+                </div>
+                <div>
+                  <i class="fa-regular fa-comment-dots"></i> <%= post.post_comments.count %>
+                </div>
               </div>
             </div>
           </div>

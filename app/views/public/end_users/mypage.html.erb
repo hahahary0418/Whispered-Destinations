@@ -19,31 +19,36 @@
   </div>
 
   <!-- 自身の投稿 -->
+  <h4 class="mb-4">投稿一覧</h4>
   <div class="row">
-    <h4 class="col-12 mb-4">投稿一覧</h4>
-    <% @posts.each do |post| %>
-      <div class="col-md-4 mb-4">
+    <% @posts.order(created_at: :desc).each do |post| %>
+      <div class="col-lg-4 col-md-6 mb-4">
         <div class="card bg-light">
           <div class="card-body">
+            <!-- 投稿の詳細 -->
             <%= link_to post_path(post.id) do %>
-              <div class="d-flex flex-column align-items-center">
-                <% if post.images.attached? %>
-                  <div class="d-flex justify-content-center flex-wrap mb-3">
-                    <% post.images.each do |image| %>
-                      <%= image_tag image, class: "img-fluid mr-2 mb-2", style: "max-height: 100px; object-fit: cover;" %>
-                    <% end %>
-                  </div>
-                <% end %>
-                <h5 class="card-title text-center"><%= post.title %></h5>
+              <!-- 1枚目の画像 -->
+              <% if post.images.attached? %>
+                <%= image_tag post.images.first, class: "img-fluid w-100 mb-3", style: "object-fit: cover; max-height: 250px;" %>
+              <% end %>
+
+              <!-- タイトルと作成日時 -->
+              <div class="d-flex justify-content-between align-items-center mb-2">
+                <h5 class="card-title m-0"><%= post.title %></h5>
+                <small class="text-muted">
+                  <%= post.created_at.in_time_zone('Asia/Tokyo').strftime('%Y-%m-%d %H:%M') %>
+                </small>
               </div>
             <% end %>
-            <div class="d-flex justify-content-between mt-3">
-              <div>
-                ♡ <%= post.favorites.count %>
-              </div>
-              <div>
-                <span id="comment_count"><i class="fa-regular fa-comment-dots"></i>　<%= post.post_comments.count %></span>
-              </div>
+          </div>
+
+          <!-- いいねとコメント数 -->
+          <div class="card-footer d-flex justify-content-between bg-white">
+            <div>
+              ♡ <%= post.favorites.count %>
+            </div>
+            <div>
+              <i class="fa-regular fa-comment-dots"></i> <%= post.post_comments.count %>
             </div>
           </div>
         </div>

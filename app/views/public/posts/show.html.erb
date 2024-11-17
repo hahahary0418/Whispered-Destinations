@@ -1,11 +1,18 @@
 <div class="container mt-5 pt-5">
   <!-- 投稿者情報 -->
-  <div class="d-flex align-items-center mb-4">
-    <%= link_to end_user_path(@post.user) do %>
-      <%= image_tag @post.user.profile_image, size: "50x50", class: "rounded-circle mr-3" %>
-    <% end %>
+  <div class="d-flex align-items-center justify-content-between mb-4">
+    <div class="d-flex align-items-center">
+      <%= link_to end_user_path(@post.user) do %>
+        <%= image_tag @post.user.profile_image, size: "50x50", class: "rounded-circle mr-3" %>
+      <% end %>
+      <div>
+        <%= link_to @post.user.name, end_user_path(@post.user), class: "font-weight-bold" %>
+      </div>
+    </div>
     <div>
-      <%= link_to @post.user.name, end_user_path(@post.user), class: "font-weight-bold" %>
+      <small class="text-muted">
+        投稿日時: <%= @post.created_at.in_time_zone('Asia/Tokyo').strftime('%Y-%m-%d %H:%M') %>
+      </small>
     </div>
   </div>
 
