@@ -19,7 +19,7 @@
     <!-- 右側にグループの詳細情報を表示 -->
     <div class="col-md-8 position-relative">
       <h2 class="d-flex justify-content-between align-items-center">
-        Group Detail
+        グループ詳細
         <!-- グループに参加している場合のみチャットボタンを表示 -->
         <% if @group.group_users.exists?(user_id: current_user.id) %>
           <%= link_to "チャット", chat_group_path(@group), class: "btn btn-primary ml-auto" %>
