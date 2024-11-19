@@ -33,14 +33,17 @@
   <!-- 本文 -->
   <p><%= @post.body %></p>
 
-  <!-- いいねとコメント -->
   <div class="d-flex justify-content-between align-items-center mb-3">
     <div class="d-flex align-items-center">
-      <span class="mr-3"><i class="fa-regular fa-heart"></i><%= @post.favorites.count %></span>
+      <!-- お気に入りボタン -->
+      <div id="favorite_btn_<%= @post.id %>" class="mr-3 mt-3">
+        <%= render "public/favorites/btn", post: @post %>
+      </div>
+      <!-- コメント数表示 -->
       <span id="comment_count"><i class="fa-regular fa-comment-dots"></i><%= @post.post_comments.count %></span>
     </div>
   </div>
-
+  
   <!-- 編集・削除ボタン -->
   <% if @post.present? && @post.user_id == current_user.id %>
     <div class="d-flex justify-content-start mb-4">
@@ -48,11 +51,6 @@
       <%= link_to "削除", post_path(@post), method: :delete, data: { confirm: '本当に削除してよろしいですか？' }, class: "btn btn-danger" %>
     </div>
   <% end %>
-
-  <!-- お気に入りボタン -->
-  <div id="favorite_btn_<%= @post.id %>" class="mb-4">
-    <%= render "public/favorites/btn", post: @post %>
-  </div>
 
   <!-- コメント関連 -->
   <div id="comment_counter" class="mb-4">
