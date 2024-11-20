@@ -1,0 +1,32 @@
+<div class="container mt-5 pt-5 mb-5">
+  <h2 class="mb-4 text-center">Following Users</h2>
+
+  <% if @users.exists? %>
+    <div class="list-group">
+      <% @users.each do |user| %>
+        <div class="list-group-item d-flex align-items-center">
+          <!-- プロフィール画像 -->
+          <% if user.profile_image.present? %>
+            <%= image_tag user.profile_image, alt: "#{user.name}'s profile image", class: "rounded-circle mr-3", style: "width: 50px; height: 50px; object-fit: cover;" %>
+          <% else %>
+            <%= image_tag "default_profile.png", alt: "Default profile image", class: "rounded-circle mr-3", style: "width: 50px; height: 50px; object-fit: cover;" %>
+          <% end %>
+
+          <!-- ユーザー名 -->
+          <div class="flex-grow-1">
+            <h5 class="mb-0"><%= link_to user.name, end_user_path(user), class: "text-dark" %></h5>
+          </div>
+
+          <!-- フォローボタン -->
+          <% if current_user.following?(user) %>
+            <%= button_to "フォロー解除", end_user_relationships_path(user.id), method: :delete, class: "btn btn-outline-danger btn-sm" %>
+          <% else %>
+            <%= button_to "フォローする", end_user_relationships_path(user.id), method: :post, class: "btn btn-outline-primary btn-sm" %>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+  <% else %>
+    <p class="text-center text-muted">フォローしているユーザーはいません。</p>
+  <% end %>
+</div>

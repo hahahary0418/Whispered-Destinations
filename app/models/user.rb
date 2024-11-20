@@ -17,6 +17,10 @@ class User < ApplicationRecord
   has_many :permits, dependent: :destroy
   has_many :groups, through: :group_users
   has_many :messages, dependent: :destroy
+  has_many :active_relationships, class_name: "Relationship", foreign_key: "follower_id", dependent: :destroy
+  has_many :passive_relationships, class_name: "Relationship", foreign_key: "followed_id", dependent: :destroy
+  has_many :followings, through: :active_relationships, source: :followed
+  has_many :followers, through: :passive_relationships, source: :follower
   has_one_attached :profile_image
   
   # 画像処理
@@ -71,6 +75,18 @@ class User < ApplicationRecord
   # 退会済み判定メソッド
   def is_deleted?
     is_deleted
+  end
+  
+  def follow(user)
+    active_relationships.create(followed_id: user.id)
+  end
+  
+  def unfollow(user)
+    active_relationships.find_by(followed_id: user.id).destroy
+  end
+  
+  def following?(user)
+    followings.include?(user)
   end
   
   # 検索メソッド

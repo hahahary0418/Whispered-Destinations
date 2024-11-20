@@ -20,6 +20,9 @@ Rails.application.routes.draw do
     get '/end_users/check' => 'end_users#check'
     patch '/end_users/withdraw' => 'end_users#withdraw'
     resources :end_users, only: [:show, :edit, :update]do
+      resource :relationships, only: [:create, :destroy]
+      	get "followings" => "relationships#followings", as: "followings"
+      	get "followers" => "relationships#followers", as: "followers"
       member do
         get :favorites
       end

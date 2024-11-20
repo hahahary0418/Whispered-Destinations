@@ -7,8 +7,22 @@
         <%= image_tag @user.get_profile_image(100, 100), class: "rounded-circle mr-3" %>
         <div>
           <h4><%= @user.name %></h4>
-          <p><strong>自己紹介:</strong> <%= @user.introduction %></p>
-          <p><strong>メールアドレス:</strong> <%= @user.email %></p>
+          <p class="user-introduction" style="white-space: pre-wrap; word-wrap: break-word;">
+            <%= @user.introduction %>
+          </p>
+        </div>
+      </div>
+
+      <div class="text-center mb-4">
+        <div class="d-flex justify-content-center align-items-center">
+          <div class="mr-4">
+            <strong>フォロー</strong><br>
+            <%= link_to @user.followings.count, end_user_followings_path(@user), class: "btn btn-link" %>
+          </div>
+          <div class="mr-4">
+            <strong>フォロワー</strong><br>
+            <%= link_to @user.followers.count, end_user_followers_path(@user), class: "btn btn-link" %>
+          </div>
         </div>
       </div>
 
@@ -17,7 +31,6 @@
       <% end %>
     </div>
   </div>
-
   <!-- 自身の投稿 -->
   <h4 class="mb-4">投稿一覧</h4>
   <div class="row">

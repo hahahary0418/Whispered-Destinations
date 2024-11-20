@@ -3,7 +3,26 @@
   <div class="text-center mb-5">
     <%= image_tag @user.get_profile_image(100, 100), class: "rounded-circle mb-3" %>
     <h3><%= @user.name %></h3>
-    <p><strong>自己紹介:</strong> <%= @user.introduction %></p>
+    <p><%= @user.introduction %></p>
+  </div>
+
+  <!-- フォロー・フォロワーとボタン -->
+  <div class="text-center mb-4">
+    <div class="d-flex justify-content-center align-items-center">
+      <div class="mr-4">
+        <strong>フォロー</strong><br>
+        <%= link_to @user.followings.count, end_user_followings_path(@user), class: "btn btn-link" %>
+      </div>
+      <div class="mr-4">
+        <strong>フォロワー</strong><br>
+        <%= link_to @user.followers.count, end_user_followers_path(@user), class: "btn btn-link" %>
+      </div>
+
+      <!-- フォローボタン -->
+      <% if current_user != @user %>
+        <%= render "public/relationships/btn", user: @user, options: { class: "btn btn-primary ml-3" } %>
+      <% end %>
+    </div>
   </div>
 
   <!-- ユーザーの投稿一覧 -->
