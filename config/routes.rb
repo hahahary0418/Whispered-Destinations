@@ -27,6 +27,9 @@ Rails.application.routes.draw do
         get :favorites
       end
     end
+    resources :rooms, only: [:show, :create] do
+      resources :messages, only: [:create]
+    end
     resources :posts, only: [:new, :create, :index, :show, :edit, :update, :destroy] do
       resource :favorite, only: [:create, :destroy]
       resources :post_comments, only: [:create, :destroy]

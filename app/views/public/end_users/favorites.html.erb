@@ -3,7 +3,7 @@
   <div class="row mt-4">
     <% @favorite_posts.each do |post| %>
       <div class="col-md-4">
-        <div class="card mb-3">
+        <div class="card mb-3 bg-light">
           <% if post.images.attached? %>
             <%= link_to post_path(post) do %>
               <%= image_tag post.images.first, class: "card-img-top", style: "height: 200px; object-fit: cover;" %>
